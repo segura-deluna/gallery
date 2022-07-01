@@ -1,20 +1,25 @@
-export const createCardPhoto = (data) => {
-  const card = document.createElement('li');
-  card.className = 'card';
+import { createElem } from './createElem.js';
 
-  const cardItem = document.createElement('a');
-  cardItem.id = data.id;
-  cardItem.className = 'grid-item';
-  cardItem.href = `page.html?photo=${data.id}`;
+export const createCardPhoto = (data) => {
+  const card = createElem('li', {
+    className: 'card',
+  });
+
+  const cardItem = createElem('a', {
+    id: data.id,
+    className: 'grid-item',
+    href: `page.html?photo=${data.id}`,
+  });
 
   const photo = new Image();
   photo.width = '200';
   photo.src = data.urls.small;
   photo.alt = data.alt_description;
 
-  const author = document.createElement('a');
-  author.className = 'card__author';
-  author.href = data.user.links.html;
+  const author = createElem('a', {
+    className: 'card__author',
+    href: data.user.links.html,
+  });
 
   const avatarAuthor = new Image();
   avatarAuthor.className = 'author__photo';
@@ -26,15 +31,17 @@ export const createCardPhoto = (data) => {
 
   author.append(avatarAuthor);
 
-  const likeBtn = document.createElement('button');
-  likeBtn.className = 'card__photo-like';
-  likeBtn.textContent = data.likes;
+  const likeBtn = createElem('button', {
+    className: 'card__photo-like',
+    textContent: data.likes,
+  });
 
-  const downloadLink = document.createElement('a');
-  downloadLink.className = 'card__download';
-  downloadLink.href = data.links.download;
-  downloadLink.download = true;
-  downloadLink.target = '_blank';
+  const downloadLink = createElem('a', {
+    className: 'card__download',
+    href: data.links.download,
+    download: true,
+    target: '_blank',
+  });
 
   cardItem.append(photo, author, likeBtn, downloadLink);
   card.append(cardItem);
